@@ -1,31 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
-
-    private Vector2 movement;
-    private Rigidbody2D rb2D;
     
-    private float horizontal;
-    private float vertical;
+    private Rigidbody2D _rigidbody2D;
+    private Vector2 _movement;
+
     private void Awake()
     {
-        rb2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
-    
+
     private void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-        
-        movement = new Vector2(horizontal, vertical);
+        //float deltaTime = Time.deltaTime;
+        float horizontal = Input.GetAxisRaw("Horizontal"); // * deltaTime;
+        float vertical = Input.GetAxisRaw("Vertical"); // * deltaTime;
+        _movement = new Vector2(horizontal, vertical);
     }
     
     private void FixedUpdate()
     {
-        rb2D.velocity = movement * speed;
+        _rigidbody2D.velocity = _movement * speed;
     }
 }
